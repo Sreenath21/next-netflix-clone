@@ -1,12 +1,18 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
+import { useSelector } from "react-redux";
+
 import Banner from "../components/Banner";
 import Header from "../components/Header";
 import Row from "../components/Row";
+import Modal from "../components/Modal";
+
+import useAuth from "../hooks/UseAuth";
 
 import requests from "../utils/request";
 import { Movie } from "../typings";
+import { getShowModal } from "../features/modalSelector";
 
 interface Props {
   netflixOriginals: Movie[];
@@ -29,6 +35,13 @@ const Home = ({
   romanceMovies,
   documentaries,
 }: Props) => {
+  const { loading } = useAuth();
+  const showModal = useSelector(getShowModal);
+
+  // console.log(showModal);
+
+  if (loading) return <h1>Loading...</h1>;
+
   return (
     <div className="relative h-screen bg-gradient-to-b lg:h-[140vh]">
       <Head>
@@ -56,13 +69,14 @@ const Home = ({
         </section>
       </main>
 
-      {/* Modal */}
+      {showModal && <Modal />}
     </div>
   );
 };
 
 export default Home;
 
+/*
 export const getServerSideProps = async () => {
   const [
     netflixOriginals,
@@ -97,3 +111,4 @@ export const getServerSideProps = async () => {
     },
   };
 };
+*/
