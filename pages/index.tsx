@@ -76,7 +76,8 @@ const Home = ({
 
 export default Home;
 
-/*
+//  Server side
+
 export const getServerSideProps = async () => {
   const [
     netflixOriginals,
@@ -111,4 +112,3 @@ export const getServerSideProps = async () => {
     },
   };
 };
-*/
